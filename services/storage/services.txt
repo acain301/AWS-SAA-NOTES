@@ -1,0 +1,55 @@
+***** EBS *****
+
+EC2 instance and volume have to be in the same AZ
+
+Volume snapshots help in copying data from an AZ to another
+
+Copy snapshot into an S3 bucket of the desired region and then create a volume from the snapshot in the new region.
+
+General SSD balance performance and price
+
+Provisioned IOPS SSD critical, IOPS intensive throughput-intensive workloads
+
+***** Instance Store *****
+
+Temporary block level storage that remains on the physical host
+
+so if an instance is moved to a different physical host the data will be wiped because it would be on a new host
+
+A reboot does not move the instance to a different physical host
+
+Stopping the instance, for a couple minutes, then restarting the instance will move it to a new physical host. 
+
+
+***** EFS *****
+
+Create a mount target in an AZ in order for instances to mount and access.
+
+Mount target becomes an ip addr
+
+only available for linux
+
+supports NFS v4 protocol
+
+Can be mounted but cannot be booted
+
+
+***** FSx *****
+
+High performance file storage, wide range of workloads
+
+other OS's can use
+
+Managed service, AWS is responsible for prisioning file servers and managing volumes/replicating data/pathcing file server/ addressing hardware issues/manual backups
+
+SMB protocol, Server Message Block, windows default while nfs is linux default ... can integrate with MS Active Directory
+
+
+FSx Lustre is the only that is single AZ
+
+
+
+
+
+
+

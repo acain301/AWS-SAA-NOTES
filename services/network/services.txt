@@ -1,0 +1,192 @@
+***** VPC *****
+
+default and custom
+
+default created by AWS on our behalf
+
+vpc's are isolated to a region
+
+DEFAULT VPC in each region without access other vpc's and a DEFAULT subnet, IGW, SG's and NACL's, 2 AZ's ... with a subnet in each AZ of the default VPC
+
+Default SG's and NACLS allow inbound and outbound traffic
+
+You can create many CUSTOM vpcs in the same region
+
+every default vpc uses a /16 cidr block
+
+
+***** SUBNETS *****
+
+Subnets reside in a single AZ
+
+Subnet block size between /16 and /28 ... first 4 IP's are reserved (.0 is network, .1-.3 for AWS
+
+Subnets cannot overlap
+
+Subnets, within the same VPC can communicate with eachother
+
+
+***** VPC ROUTING *****
+
+ever VPC has a VPC router that has an interface with each subnet
+
+Every route table has a local route
+
+Every subnet is associated with one route table 
+
+default route table in default VPC ... multiple subnets can be with one route table 
+
+
+
+***** IGW *****
+
+IGW's span all AZ's within a region.
+
+Only one IGW can be attached to a VPC at a time. 
+
+Public IP's need to be manually attached. Resources are not cognizant of public IP's, AWS's routes packets from public to private IP and then negotiated by the intended resource. 
+
+Subnet is made public once a default route points to the VPC's IGW
+
+
+
+***** NAT GATEWAY *****
+
+Nat Gateway also needs an IGW to get out into the internet. 
+
+NGW sits in the public subnet and has default routes connecting it to private subnet where resources reside. 
+
+NGW's can only exist in one AZ, so multiple NGW's, in their respective AZ's, will need to be deployed in order to have true redundancy.
+
+
+***** DNS *****
+
+DNS queries can go to AWS resolver 169.254.169.253 or to a VPC second IP, reserved for DNS ... VPC - 10.10.0.0/16 - DNS 10.10.0.2 Reserved for resolver
+
+By default, only private subnets get a DNS entry ... to allow public subnets to get DNS entries you have to enable the enableDnsHostnames and enableDnsSupport options when creating a VPC
+
+enableDnsHostnames determines whether the VPC supports assigning public DNS hostnames to instances with public IP addresses ["Enable DNS Hostnames" Option]
+
+enableDnsSupport determines whether the VPC supports DNS resolution through the Amazon provided DNS server ["Enable DNS Resolution" Option]
+
+
+***** Elastic IP *****
+
+Default public IP's aren't static and will be reassigned after rebooting or moving an instance to a new host. 
+
+Elastic IPs are static IPs and are to associated with an instance of NIC.  
+
+They are specific to a region and come from Amazon's pool of IPv4 addrs
+
+
+***** SG + NACLS *****
+
+NACLs filter traffic entering and leaving a subnet but do not filter traffic WITHIN the subnet, stateless ... NACLs rules can DENY or ALLOW
+
+SGs are firewalls for individual resources, stateful ... SG rules can only ALLOW ... multiple SGs can be assigned to a single resource and the rules will be merged
+
+by default, SGs container outbound rules that allow all outbound traffic but you can delete this rule
+
+Every subnet within a VPC must be associated with a NACL
+
+NACL is one-to-many subnets and vice versa
+
+
+***** Load Balancers *****
+
+Classic, application and network
+
+ALB supports only HTTP/HTTPS/WebSockets ... layer 7 and can forward requests based off of url path conditions, host domain, http fields, supports http redirects
+
+ALB can perform application-specific health checks and terminates incoming encrypted request with ssl certs before reaching a resource.
+
+NLB layer 4, TCP/UDP and is meant for apps that don't use HTTP/S and is faster than ALB ... health checks are only ICMP/TCP and only forwards encrypted requests to resources.
+
+LB nodes are deployed into specified public subnets and can only allocate traffic in that AZ
+
+Cross-Zone load balancing allows LB nodes to balance traffic across AZ's
+
+Load balancers in public subnets can forward requests to resources in private subnets
+
+LB can be the only resource on the public subnet and the rest on the private subnet and everything will still work fine
+
+
+***** VPN *****
+
+VPN GW terminates on AWS side
+
+Customer GW terminates on customer side
+
+ipSec Tunnel over the internet
+
+Charged every hour and the outbound traffic transferred
+
+Connects VPC's to on-prem data centers
+
+
+***** Direct Connect *****
+
+A physical connection to AWS
+
+Is utlimately a direct connection to an AWS router. 
+
+customer GW, from on-prem site, connects to Direct Connect location which is usually another customers site but AWS rents space. The connection from the customer GW goes to the Direct Connect's location Customer Router and then the Customer Routers connection goes to the AWS Router which then connects to infrastructure hosted in AWS Cloud.
+
+Cross connect is a connection between a port on AWS router to customer router.
+
+
+***** VPC Peering *****
+
+
+By default resources in a VPC cannot talk to resources in a different VPC because VPC's act as network boundaries
+
+VPC Peering acts as a network connection between different VPC's
+
+Data transferred within the same AZ is free for VPC Peering 
+
+A VPC cannot use a peering connection with another VPC to talk to another VPC that has peering connection with the same VPC. ex if there is a connection between A -> B and B -> C, A will not be able to talk to C "VPC Peering is not transitive"
+
+
+***** Transit Gateway *****
+
+managed way to deal with VPC peering, serves a central hub of sorts
+
+**** Private Link *****
+
+direct link to AWS public services, also in different vpc's, without having to use internet
+
+Connects to services as if they're in the same vpc
+
+
+***** Cloudfront *****
+
+Leverages edge locations to serve content, via caching, to global users in remote areas. Alot more edge locations because they don't have to be big.
+
+helps minimize latency
+
+Create a distribution to let cloudfront know where to find the source files
+
+Cloudfront will then create the domain name
+
+Default TTL is 24 hours
+
+Cache invalidation forces edge location to get updated source content.
+
+
+***** Route 53 *****
+
+is a global service 
+
+hosted zones are collections of DNS records ... 4 nameservers for each zone
+
+***** Route 53 Application Recovery Controller *****
+
+Cell's are groups of all resources required for an application to operate independently.
+
+Recovery group is a collection of cells that represent an application that will be checked for failover readiness
+
+Resource set is a set of AWS resources that can span multiple cells
+
+The controller is a service that continuously monitors your app's ability to recover from failures
+
+
