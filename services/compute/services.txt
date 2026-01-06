@@ -1,0 +1,40 @@
+***** EC2 *****
+
+ami's are like docker images
+
+key pair to ssh into instance
+
+lifecycles, pending|running|stopping|stopped|shutting down|terminated
+
+terminated is perminately deleted
+
+bootstrap script can only be up to 16KB in size
+
+ELB and autoscaling groups ... ELB can manage across multiple AZ's
+
+Elastic IP's for a static ip
+
+launch template, parameters for instances ... can be applied to autoscaling groups
+
+cluster placement groups, cut down on latency
+
+partition placement groups, instances on different hardware
+
+puchasing options, ondemand|spot|savingsplan|reserved|dedicatedhosts|dedicatedinstances
+
+reserved, 1 or 3 year committment to use compute power
+
+savings, monthly discount
+
+image builder, choose a base img and add/remove software you want
+
+golden image, used across
+
+
+***** Elastic Network Interface *****
+
+Primary eni comes with ec2 instance by default
+
+secondary eni can be detached and attached to a different instance
+
+
