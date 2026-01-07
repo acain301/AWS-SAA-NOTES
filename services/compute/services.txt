@@ -37,4 +37,50 @@ Primary eni comes with ec2 instance by default
 
 secondary eni can be detached and attached to a different instance
 
+***** Elastic Beanstalk *****
+
+You only manage the code on top of the beanstalk platform
+
+
+***** Lightsail *****
+
+quickest way to get an app up and running 
+
+instances, containers, db's, storage, networking
+
+You choose instance location and platform. You choose dev stack and instance plan. 
+
+can deploy ecr containers to lightsail 
+
+***** ECS *****
+
+fully managed container orchestration service that helps manage and scale containerized applications
+
+containers run on EC2 or Fargate
+
+ECS is proprietary that is a simple alternative to kubernetes and other orchestration applications
+
+
+for EC2 deployment, you have to manage underlying infrastructure (docker containers, ECS agent, firewall, patch deployment) ... ECS will manage control plane
+
+Fargate manages underlying infrastructure, serverless architecture
+
+ECS Task Definition, blueprint for how containers should launch. (cpu, mem, ports, image, volumes)
+
+
+ECS task is a running container that uses task definitions for it's settings
+
+ECS Service, ensures that a certain number of tasks are running at all timese
+
+
+
+
+
+
+
+
+
+
+
+
 
