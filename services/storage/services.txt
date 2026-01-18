@@ -1,155 +1,156 @@
-***** EBS *****
-Block based storage
-EC2 instance and volume have to be in the same AZ
+EBS:
 
-Volume snapshots help in copying data from an AZ to another
+    Block based storage
+    EC2 instance and volume have to be in the same AZ
 
-Copy snapshot into an S3 bucket of the desired region and then create a volume from the snapshot in the new region.
+    Volume snapshots help in copying data from an AZ to another
 
-General SSD balance performance and price
+    Copy snapshot into an S3 bucket of the desired region and then create a volume from the snapshot in the new region.
 
-Provisioned IOPS SSD critical, IOPS intensive throughput-intensive workloads
+    General SSD balance performance and price
 
-***** Instance Store *****
+    Provisioned IOPS SSD critical, IOPS intensive throughput-intensive workloads
 
-Temporary block level storage that remains on the physical host
+Instance Store:
 
-so if an instance is moved to a different physical host the data will be wiped because it would be on a new host
+    Temporary block level storage that remains on the physical host
 
-A reboot does not move the instance to a different physical host
+    so if an instance is moved to a different physical host the data will be wiped because it would be on a new host
 
-Stopping the instance, for a couple minutes, then restarting the instance will move it to a new physical host. 
+    A reboot does not move the instance to a different physical host
 
+    Stopping the instance, for a couple minutes, then restarting the instance will move it to a new physical host. 
 
-***** EFS *****
-File based storage
-Create a mount target in an AZ in order for instances to mount and access.
 
-Mount target becomes an ip addr
+EFS:
+    File based storage
+    Create a mount target in an AZ in order for instances to mount and access.
 
-only available for linux
+    Mount target becomes an ip addr
 
-supports NFS v4 protocol
+    only available for linux
 
-Can be mounted but cannot be booted
+    supports NFS v4 protocol
 
+    Can be mounted but cannot be booted
 
-***** FSx *****
-File based storage 
 
-High performance file storage, wide range of workloads
+FSx:
+    File based storage 
 
-other OS's can use
+    High performance file storage, wide range of workloads
 
-Managed service, AWS is responsible for prisioning file servers and managing volumes/replicating data/pathcing file server/ addressing hardware issues/manual backups
+    other OS's can use
 
-SMB protocol, Server Message Block, windows default while nfs is linux default ... can integrate with MS Active Directory
+    Managed service, AWS is responsible for prisioning file servers and managing volumes/replicating data/pathcing file server/ addressing hardware issues/manual backups
 
+    SMB protocol, Server Message Block, windows default while nfs is linux default ... can integrate with MS Active Directory
 
-FSx Lustre is the only that is single AZ
 
+    FSx Lustre is the only that is single AZ
 
-***** S3 *****
 
-Object storage
+S3:
 
-S3 auto replicates your files across multiple ZA's and instances
+    Object storage
 
-can handle unlimited amounts of object4s
+    S3 auto replicates your files across multiple ZA's and instances
 
-Max of 5TB for an individual file
+    can handle unlimited amounts of object4s
 
-accounts support 100 buckets, by default, and can be increased to 1000
+    Max of 5TB for an individual file
 
-bucket names have to be globally unique
+    accounts support 100 buckets, by default, and can be increased to 1000
 
-supports multi part upload which allows you to break up an object into parts before uploading. Uploading a file bigger than 5GB than multi part upload is required. It's recommended for files bigger than 100MB.
+    bucket names have to be globally unique
 
-***** S3 Storage Classes *****
+    supports multi part upload which allows you to break up an object into parts before uploading. Uploading a file bigger than 5GB than multi part upload is required. It's recommended for files bigger than 100MB.
 
-Standard - objects replicated across 3 AZ's, low latency, durability
+S3 Storage Classes:
 
-Standard-IA - objects replicated across 3 AZ's, 11 9's of durability, low latency, retrival fee and duration charge for at least 30 days once the file is uploaded. Minimum. Infrequent access and bigger files are recommended.
+    Standard - objects replicated across 3 AZ's, low latency, durability
 
-S3 One Zone-IA - replicated on 1 Zone. Same charging as standard just a replication difference. 
+    Standard-IA - objects replicated across 3 AZ's, 11 9's of durability, low latency, retrival fee and duration charge for at least 30 days once the file is uploaded. Minimum. Infrequent access and bigger files are recommended.
 
-S3 Glacier - rarely accessed data, archival data. Across 3 AZ's and can be accessed within seconds. 90 file duration charge, cheaper than standard and IA.
+    S3 One Zone-IA - replicated on 1 Zone. Same charging as standard just a replication difference. 
 
-S3 Glacier Flexible - Cold storage, Objects aren't immediately available. 
+    S3 Glacier - rarely accessed data, archival data. Across 3 AZ's and can be accessed within seconds. 90 file duration charge, cheaper than standard and IA.
 
-S3 Glacier Deep Archive -  
+    S3 Glacier Flexible - Cold storage, Objects aren't immediately available. 
 
-S3 Intelligent Tiering - Auto reduces storage costs by intelligently moving data to the most cost-effective access tier. You're charged for tiered monitoring service.
+    S3 Glacier Deep Archive -  
 
-Don't need immediate access but rarely frequent, go with glacier
+    S3 Intelligent Tiering - Auto reduces storage costs by intelligently moving data to the most cost-effective access tier. You're charged for tiered monitoring service.
 
-Frequent, go with standard
+    Don't need immediate access but rarely frequent, go with glacier
 
-Immediate access but infrequent, standard-IA or One Zone-IA
+    Frequent, go with standard
 
+    Immediate access but infrequent, standard-IA or One Zone-IA
 
-***** Versioning *****
 
-you are charged for all of the versions that exist
+Versioning:
 
-Suspended versioning, you'll have to manually delete the existing versions
+    you are charged for all of the versions that exist
 
-Versioning is disabled by default
+    Suspended versioning, you'll have to manually delete the existing versions
 
-Versioning has to be enabled at the bucket level and cannot be enabled for individual objects
+    Versioning is disabled by default
 
-Versioning states - unversioned|version enabled|versioning suspended
+    Versioning has to be enabled at the bucket level and cannot be enabled for individual objects
 
-Bucket cannot move back to an unversioned state affer versioning has been enabled
+    Versioning states - unversioned|version enabled|versioning suspended
 
-IAM policies are attached to users or groups and tells them what they can do. Resource policies are attached to a resource and allows what a user can do. 
+    Bucket cannot move back to an unversioned state affer versioning has been enabled
 
-IAM and resource policies work together so IAM and resource policies have to allow certain actions for the workflow to function as intended. 
+    IAM policies are attached to users or groups and tells them what they can do. Resource policies are attached to a resource and allows what a user can do. 
 
+    IAM and resource policies work together so IAM and resource policies have to allow certain actions for the workflow to function as intended. 
 
-***** Pre-Signed URLs *****
 
-want to allow access to specific public users
+Pre-Signed URLs:
 
-presigned urls use sec creds to grant time-limited permissions to download objects
+    want to allow access to specific public users
 
-when another user clocks the url, they are performing a request to AWS API with the identity of the user that created the presigned url.
+    presigned urls use sec creds to grant time-limited permissions to download objects
 
+    when another user clocks the url, they are performing a request to AWS API with the identity of the user that created the presigned url.
 
 
-expiration date must be provided
 
-max expiration date of 7 days 
+    expiration date must be provided
 
-The presigned url does not give you access to a bucket, it only allows you to send a request to s3 as the user that generate the url
+    max expiration date of 7 days 
 
+    The presigned url does not give you access to a bucket, it only allows you to send a request to s3 as the user that generate the url
 
-***** Access Points *****
 
-simplifies management of access to s3 buckets
+Access Points:
 
-every group/user can be given their own access point that acts as a tunnel into an s3 bucket
+    simplifies management of access to s3 buckets
 
-every AP has it's own ARN
+    every group/user can be given their own access point that acts as a tunnel into an s3 bucket
 
-can be used to restrict access to bucket to devices in specific VPC's
+    every AP has it's own ARN
 
-***** Elastic Disaster Recover *****
+    can be used to restrict access to bucket to devices in specific VPC's
 
-fully manage distaster recovery service for physical, virtual and cloud based servers
+Elastic Disaster Recover:
 
-customers can use AWS as a recovery site instead of investing in on prem disaster recovery infrastructure
+    fully manage distaster recovery service for physical, virtual and cloud based servers
 
-source servers, are the servers/data that we want to replicate
+    customers can use AWS as a recovery site instead of investing in on prem disaster recovery infrastructure
 
-staging area, the location where AWS will receive the replicated data.
+    source servers, are the servers/data that we want to replicate
 
-launch template, used to configure the specs of the recovery servers. (size, region/subnet, security group)
+    staging area, the location where AWS will receive the replicated data.
 
+    launch template, used to configure the specs of the recovery servers. (size, region/subnet, security group)
 
-***** Storage Gateway *****
 
-different modes, volume|file|tape
+Storage Gateway:
+
+    different modes, volume|file|tape
 
 
 

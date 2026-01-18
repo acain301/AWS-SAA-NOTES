@@ -35,4 +35,13 @@ SNS:
     
 SQS:
     Message decoupling, async processing, scalable architecture. 
+
+Amazon MQ:
+    Message broker service
+    ActiveMQ or RabbitMQ fork!
+    message queuing decoupling, reliable message delivery, message durability and persistence, high message throughput.
+
+EventBridge:
+    event bus, pipes, scheduler
+    decoupling, scalability, processing a large scale of events, event routing and filtering.
     

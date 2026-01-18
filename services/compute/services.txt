@@ -1,76 +1,76 @@
-***** EC2 *****
+EC2:
 
-ami's are like docker images
+    ami's are like docker images
 
-key pair to ssh into instance
+    key pair to ssh into instance
 
-lifecycles, pending|running|stopping|stopped|shutting down|terminated
+    lifecycles, pending|running|stopping|stopped|shutting down|terminated
 
-terminated is perminately deleted
+    terminated is perminately deleted
 
-bootstrap script can only be up to 16KB in size
+    bootstrap script can only be up to 16KB in size
 
-ELB and autoscaling groups ... ELB can manage across multiple AZ's
+    ELB and autoscaling groups ... ELB can manage across multiple AZ's
 
-Elastic IP's for a static ip
+    Elastic IP's for a static ip
 
-launch template, parameters for instances ... can be applied to autoscaling groups
+    launch template, parameters for instances ... can be applied to autoscaling groups
 
-cluster placement groups, cut down on latency
+    cluster placement groups, cut down on latency
 
-partition placement groups, instances on different hardware
+    partition placement groups, instances on different hardware
 
-puchasing options, ondemand|spot|savingsplan|reserved|dedicatedhosts|dedicatedinstances
+    puchasing options, ondemand|spot|savingsplan|reserved|dedicatedhosts|dedicatedinstances
 
-reserved, 1 or 3 year committment to use compute power
+    reserved, 1 or 3 year committment to use compute power
 
-savings, monthly discount
+    savings, monthly discount
 
-image builder, choose a base img and add/remove software you want
+    image builder, choose a base img and add/remove software you want
 
-golden image, used across
-
-
-***** Elastic Network Interface *****
-
-Primary eni comes with ec2 instance by default
-
-secondary eni can be detached and attached to a different instance
-
-***** Elastic Beanstalk *****
-
-You only manage the code on top of the beanstalk platform
+    golden image, used across
 
 
-***** Lightsail *****
+Elastic Network Interface:
 
-quickest way to get an app up and running 
+    Primary eni comes with ec2 instance by default
 
-instances, containers, db's, storage, networking
+    secondary eni can be detached and attached to a different instance
 
-You choose instance location and platform. You choose dev stack and instance plan. 
+    Elastic Beanstalk:
 
-can deploy ecr containers to lightsail 
-
-***** ECS *****
-
-fully managed container orchestration service that helps manage and scale containerized applications
-
-containers run on EC2 or Fargate
-
-ECS is proprietary that is a simple alternative to kubernetes and other orchestration applications
+    You only manage the code on top of the beanstalk platform
 
 
-for EC2 deployment, you have to manage underlying infrastructure (docker containers, ECS agent, firewall, patch deployment) ... ECS will manage control plane
+Lightsail:
 
-Fargate manages underlying infrastructure, serverless architecture
+    quickest way to get an app up and running 
 
-ECS Task Definition, blueprint for how containers should launch. (cpu, mem, ports, image, volumes)
+    instances, containers, db's, storage, networking
+
+    You choose instance location and platform. You choose dev stack and instance plan. 
+
+    can deploy ecr containers to lightsail 
+
+ECS:
+
+    fully managed container orchestration service that helps manage and scale containerized applications
+
+    containers run on EC2 or Fargate
+
+    ECS is proprietary that is a simple alternative to kubernetes and other orchestration applications
 
 
-ECS task is a running container that uses task definitions for it's settings
+    for EC2 deployment, you have to manage underlying infrastructure (docker containers, ECS agent, firewall, patch deployment) ... ECS will manage control plane
 
-ECS Service, ensures that a certain number of tasks are running at all timese
+    Fargate manages underlying infrastructure, serverless architecture
+
+    ECS Task Definition, blueprint for how containers should launch. (cpu, mem, ports, image, volumes)
+
+
+    ECS task is a running container that uses task definitions for it's settings
+
+    ECS Service, ensures that a certain number of tasks are running at all timese
 
 
 
