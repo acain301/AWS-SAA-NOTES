@@ -1,0 +1,14 @@
+Load Balancers:
+
+    Creates single entry point into application and routes request to different servers.
+    capable of spanning across multiple subnets.
+
+
+    Target Group, a group of servers the LB should forward request to. Target groups figure out which server to forward a request to.
+    Health checks from load balancers.
+    Public and private load balancers
+    cross-zone load balancing, can send traffic to instances in other AZ's
+    ALB and NLB
+    NLB, layer 4, faster because it only forwards on port #
+    ALB, layer 7, feature rich, can forward on a myriad of options and redirect
+    
