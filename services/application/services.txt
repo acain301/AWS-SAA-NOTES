@@ -11,4 +11,28 @@ Load Balancers:
     ALB and NLB
     NLB, layer 4, faster because it only forwards on port #
     ALB, layer 7, feature rich, can forward on a myriad of options and redirect
+
+
+API Gateway:
+
+
+AppFlow:
+    Fully managed service that allows you to transfer data between various AWS resources/tools. 
+    Connector, username, passwords and ect to create flow (channel) between source and destination.
+    Trigger, dictates how a flow runs.
+    use case, appflow connection to transfer salesforce data into Redshift. Flows transferring slack data to s3.
+
+SNS:
+    Topic, comms channel that subscribers can be added to.
+    Standard and FIFO topics.
+    Standard, may not show up in order and duplication may exist.
+    Use FIFO if you need order and dedupe functionality. 10mb/sec, 300 messages per sec
+    FIFO cannot scale as well as standard.
+    Batch to save cost.
+    Each message can only contain 2GB per message 
+    integrates with KMS to encrypt messages.
+    Can capture fan-out events from over 60 AWS services. 
+    
+SQS:
+    Message decoupling, async processing, scalable architecture. 
     
